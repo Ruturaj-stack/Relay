@@ -1,0 +1,59 @@
+{
+  "name": "RELAY — Smart handoff ledger",
+  "short_name": "RELAY",
+  "description": "Track the things people pass between each other with QR proof, condition records and a trust record.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#08090b",
+  "theme_color": "#08090b",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["productivity", "business", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New handoff",
+      "short_name": "New handoff",
+      "description": "Prepare a handoff for someone on your team.",
+      "url": "/handoffs/new",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Scan a code",
+      "short_name": "Scan",
+      "description": "Verify a handoff QR and confirm receipt.",
+      "url": "/scan",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "My items",
+      "short_name": "Items",
+      "description": "Open the shared inventory.",
+      "url": "/items",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
