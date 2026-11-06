@@ -337,7 +337,7 @@ export function AnalyticsPage() {
               <h2 className="text-[13.5px] font-medium text-ink">Status breakdown</h2>
               <p className="mt-0.5 text-[11px] text-faint">Every handoff in the workspace, current state.</p>
             </div>
-            <Link to="/handoffs" className="text-[10.5px] font-medium text-muted hover:text-accent">
+            <Link to="/handoffs" className="tap-link text-[10.5px] font-medium text-muted hover:text-accent">
               Open list
             </Link>
           </div>
@@ -380,7 +380,7 @@ export function AnalyticsPage() {
               </div>
               <p className="mt-0.5 text-[11px] text-faint">Which items move the most in this window.</p>
             </div>
-            <Link to="/items" className="inline-flex items-center gap-1 text-[10.5px] font-medium text-muted hover:text-accent">
+            <Link to="/items" className="tap-link inline-flex items-center gap-1 text-[10.5px] font-medium text-muted hover:text-accent">
               Inventory <ArrowUpRight size={11} />
             </Link>
           </div>
@@ -476,7 +476,7 @@ export function AnalyticsPage() {
           <div className="border-t border-line px-4 py-3 sm:px-5">
             <Link
               to="/people?tab=teams"
-              className="flex items-center justify-between text-[10.5px] font-medium text-muted hover:text-accent"
+              className="tap-link flex items-center justify-between text-[10.5px] font-medium text-muted hover:text-accent"
             >
               Manage teams <ArrowRight size={11} />
             </Link>
@@ -529,7 +529,7 @@ export function AnalyticsPage() {
             </p>
             <Link
               to="/items"
-              className="mt-4 inline-flex items-center gap-1 text-[10.5px] font-medium text-accent hover:underline"
+              className="tap-link mt-4 inline-flex items-center gap-1 text-[10.5px] font-medium text-accent hover:underline"
             >
               Review inventory <ArrowRight size={11} />
             </Link>

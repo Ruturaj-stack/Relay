@@ -258,7 +258,7 @@ export function HandoffsPage() {
             <SearchField value={search} onChange={setSearch} placeholder="Search item, code, person…" />
           </div>
           <Menu
-            label="Sort and filter"
+            label="Filters and sorting"
             trigger={
               <span className="flex items-center gap-1.5 text-[12px]">
                 <SlidersHorizontal size={14} /> Filters

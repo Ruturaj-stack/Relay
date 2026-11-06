@@ -91,6 +91,7 @@ export function ScanPage() {
   const [note, setNote] = useState('')
   const [photo, setPhoto] = useState<string | undefined>()
   const [confirmed, setConfirmed] = useState(false)
+  const [verifiedAt, setVerifiedAt] = useState<Date | null>(null)
 
   const stopCamera = useCallback(() => {
     streamRef.current?.getTracks().forEach((track) => track.stop())
@@ -111,6 +112,7 @@ export function ScanPage() {
         setNote('')
         setPhoto(undefined)
         setConfirmed(false)
+        setVerifiedAt(new Date())
         setMethod(source)
         setPhase('result')
         stopCamera()
@@ -251,6 +253,7 @@ export function ScanPage() {
   const reset = () => {
     setResult(null)
     setConfirmed(false)
+    setVerifiedAt(null)
     setScanError(null)
     setManualError(null)
     setManualCode('')
@@ -324,6 +327,7 @@ export function ScanPage() {
           canConfirm={canConfirm}
           alreadyRecorded={alreadyRecorded}
           confirmed={confirmed}
+          verifiedAt={verifiedAt ?? new Date(result.updatedAt)}
           condition={condition}
           setCondition={setCondition}
           note={note}
@@ -573,6 +577,7 @@ function ScanResult({
   canConfirm,
   alreadyRecorded,
   confirmed,
+  verifiedAt,
   condition,
   setCondition,
   note,
@@ -593,6 +598,7 @@ function ScanResult({
   canConfirm: boolean
   alreadyRecorded: boolean
   confirmed: boolean
+  verifiedAt: Date
   condition: ItemCondition
   setCondition: (next: ItemCondition) => void
   note: string
@@ -805,7 +811,7 @@ function ScanResult({
             </div>
             <div className="flex justify-between gap-3">
               <span className="text-faint">Verified</span>
-              <span>{formatDateTime(new Date())}</span>
+              <span>{formatDateTime(verifiedAt)}</span>
             </div>
           </div>
         </div>

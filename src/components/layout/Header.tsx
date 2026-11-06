@@ -57,7 +57,6 @@ export function Header() {
           type="button"
           onClick={() => setCommandOpen(true)}
           className="group hidden h-9 w-[250px] items-center gap-2.5 rounded-[8px] border border-line bg-surface-2/55 px-3 text-left transition-all hover:border-line-strong hover:bg-surface-2 xl:flex"
-          aria-label="Open command palette"
         >
           <Search size={14} className="text-faint transition-colors group-hover:text-muted" />
           <span className="flex-1 text-[11.5px] text-faint">Search or jump to…</span>
@@ -122,12 +121,13 @@ export function Header() {
             )}
           </button>
 
-          <Link to="/settings" className="ml-0.5" aria-label="Open profile">
+          <Link to="/settings" className="ml-0.5">
             {profile ? (
               <Avatar profile={profile} size="sm" />
             ) : (
               <span className="block h-8 w-8 rounded-full bg-surface-3" />
             )}
+            <span className="sr-only">Open profile</span>
           </Link>
 
           <button

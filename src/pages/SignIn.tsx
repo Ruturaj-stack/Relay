@@ -66,13 +66,21 @@ export function SignInPage() {
   if (user) return <Navigate to={redirectTo} replace />
 
   const onSignIn = signInForm.handleSubmit(async (values) => {
-    await signIn.mutateAsync(values)
-    navigate(redirectTo, { replace: true })
+    try {
+      await signIn.mutateAsync(values)
+      navigate(redirectTo, { replace: true })
+    } catch {
+      // The mutation hook shows the error inline and as a toast.
+    }
   })
 
   const onSignUp = signUpForm.handleSubmit(async (values) => {
-    await signUp.mutateAsync(values)
-    navigate('/', { replace: true })
+    try {
+      await signUp.mutateAsync(values)
+      navigate('/', { replace: true })
+    } catch {
+      // The mutation hook shows the error inline and as a toast.
+    }
   })
 
   const fillDemo = (email: string) => {
@@ -162,7 +170,7 @@ export function SignInPage() {
               )}
 
               {mode === 'signin' ? (
-                <form onSubmit={onSignIn} className="space-y-3.5">
+                <form onSubmit={onSignIn} noValidate className="space-y-3.5">
                   <TextField
                     label="Email"
                     type="email"
@@ -196,7 +204,7 @@ export function SignInPage() {
                   </Button>
                 </form>
               ) : (
-                <form onSubmit={onSignUp} className="space-y-3.5">
+                <form onSubmit={onSignUp} noValidate className="space-y-3.5">
                   <TextField
                     label="Full name"
                     autoComplete="name"

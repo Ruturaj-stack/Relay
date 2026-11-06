@@ -217,7 +217,7 @@ export function ItemsPage() {
             <SearchField value={search} onChange={setSearch} placeholder="Search items, tags, holders…" />
           </div>
           <Menu
-            label="Filter items"
+            label="Status filters"
             trigger={
               <span className="flex items-center gap-1.5 text-[12px]">
                 <Wrench size={13} /> Status
@@ -405,7 +405,7 @@ function ItemCard({ item, meId, onEdit }: { item: ItemView; meId?: string; onEdi
       <div className="p-3.5">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <Link to={`/items/${item.id}`} className="block truncate text-[13.5px] font-medium text-ink hover:text-accent">
+            <Link to={`/items/${item.id}`} className="tap-link block truncate text-[13.5px] font-medium text-ink hover:text-accent">
               {item.name}
             </Link>
             <p className="mt-0.5 flex items-center gap-1.5 text-[10.5px] text-faint">
@@ -432,7 +432,7 @@ function ItemCard({ item, meId, onEdit }: { item: ItemView; meId?: string; onEdi
         <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
           <ConditionPill condition={item.condition} />
           {item.activeHandoff && (
-            <Link to={`/handoffs/${item.activeHandoff.id}`} className="badge border-line bg-surface-2 text-muted">
+            <Link to={`/handoffs/${item.activeHandoff.id}`} className="tap-link badge border-line bg-surface-2 text-muted">
               {item.activeHandoff.code}
             </Link>
           )}

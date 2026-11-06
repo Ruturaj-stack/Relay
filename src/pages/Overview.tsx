@@ -66,6 +66,7 @@ import {
 } from '@/components/ui/primitives'
 import { SegmentedControl } from '@/components/ui/tabs'
 import { ReportIssueDialog } from '@/components/ReportIssueDialog'
+import { useNow } from '@/hooks/useViewport'
 
 type Range = '7' | '30' | '90'
 
@@ -75,6 +76,7 @@ export function OverviewPage() {
   const [issueOpen, setIssueOpen] = useState(false)
   const action = useHandoffAction()
   const navigate = useNavigate()
+  const now = useNow(60_000)
 
   const days = Number(range)
   const profile = data ? getCurrentProfile(data) : undefined
@@ -116,7 +118,7 @@ export function OverviewPage() {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
-  }).format(new Date())
+  }).format(now)
 
   const handleQuickAction = (handoff: HandoffView) => {
     if (handoff.status === 'requested') {
@@ -316,7 +318,7 @@ export function OverviewPage() {
               </div>
               <p className="mt-0.5 text-[11px] text-faint">Small actions that keep the chain moving.</p>
             </div>
-            <Link to="/handoffs?filter=attention" className="text-[10.5px] font-medium text-muted hover:text-accent">
+            <Link to="/handoffs?filter=attention" className="tap-link text-[10.5px] font-medium text-muted hover:text-accent">
               View all
             </Link>
           </div>
@@ -411,7 +413,7 @@ export function OverviewPage() {
               </div>
               <p className="mt-0.5 text-[11px] text-faint">The trust record, as it happens.</p>
             </div>
-            <Link to="/activity" className="inline-flex items-center gap-1 text-[10.5px] font-medium text-muted hover:text-accent">
+            <Link to="/activity" className="tap-link inline-flex items-center gap-1 text-[10.5px] font-medium text-muted hover:text-accent">
               Full timeline <ArrowUpRight size={11} />
             </Link>
           </div>
@@ -463,7 +465,7 @@ export function OverviewPage() {
               </div>
               <p className="mt-0.5 text-[11px] text-faint">Estimated risk, based on real signals.</p>
             </div>
-            <Link to="/handoffs?filter=active" className="text-[10.5px] font-medium text-muted hover:text-accent">
+            <Link to="/handoffs?filter=active" className="tap-link text-[10.5px] font-medium text-muted hover:text-accent">
               All active
             </Link>
           </div>
@@ -538,7 +540,7 @@ export function OverviewPage() {
               {data.handoffs.filter((h) => h.senderId === profile.id || h.receiverId === profile.id).length} handoffs
               connected
             </p>
-            <Link to="/items" className="mt-1 inline-flex items-center gap-1 text-[10px] font-medium text-accent">
+            <Link to="/items" className="tap-link mt-1 inline-flex items-center gap-1 text-[10px] font-medium text-accent">
               Review items <ArrowRight size={10} />
             </Link>
           </div>

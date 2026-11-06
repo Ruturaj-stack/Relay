@@ -653,7 +653,7 @@ export function NewHandoffPage() {
                 </li>
               ))}
             </ol>
-            <Link to="/scan" className="mt-3 inline-flex items-center gap-1 text-[10.5px] font-medium text-accent hover:underline">
+            <Link to="/scan" className="tap-link mt-3 inline-flex items-center gap-1 text-[10.5px] font-medium text-accent hover:underline">
               Preview the scanner <ChevronRight size={11} />
             </Link>
           </div>

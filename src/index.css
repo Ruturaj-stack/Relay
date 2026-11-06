@@ -46,7 +46,7 @@ html[data-theme="dark"] {
   --line-strong: rgba(255, 255, 255, 0.14);
   --text: #f1efe8;
   --muted: #9a9da6;
-  --faint: #686c76;
+  --faint: #848892;
   --accent: #d8f36c;
   --accent-ink: #141803;
   --accent-soft: rgba(216, 243, 108, 0.11);
@@ -69,7 +69,7 @@ html[data-theme="light"] {
   --line-strong: rgba(23, 24, 26, 0.16);
   --text: #17181a;
   --muted: #61636a;
-  --faint: #8b8d93;
+  --faint: #65676e;
   --accent: #cbe44f;
   --accent-ink: #171c02;
   --accent-soft: rgba(160, 184, 24, 0.13);
@@ -112,6 +112,24 @@ body {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/**
+ * Expand the pointer target of small standalone links to at least 24x24px
+ * without moving them or changing surrounding layout. The pseudo-element is
+ * part of the link, so clicks inside it activate the link.
+ */
+@utility tap-link {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100%, 24px);
+    height: max(100%, 24px);
+    transform: translate(-50%, -50%);
+  }
 }
 
 button,

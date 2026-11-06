@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import {
   ArrowLeftRight,
   ArrowRight,
@@ -56,6 +56,7 @@ export function CommandPalette() {
   const [query, setQuery] = useState('')
   const debouncedQuery = useDebounce(query, 120)
   const [active, setActive] = useState(0)
+  const reduced = useReducedMotion()
   const listRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   useLockBodyScroll(open)
@@ -234,6 +235,7 @@ export function CommandPalette() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: reduced ? 0 : 0.18 }}
             className="absolute inset-0 bg-black/60 backdrop-blur-[3px]"
             onClick={() => setOpen(false)}
             aria-hidden="true"
@@ -242,10 +244,10 @@ export function CommandPalette() {
             role="dialog"
             aria-modal="true"
             aria-label="Command palette"
-            initial={{ opacity: 0, y: -10, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.99 }}
-            transition={{ type: 'spring', stiffness: 430, damping: 34 }}
+            initial={reduced ? { opacity: 1 } : { opacity: 0, y: -10, scale: 0.985 }}
+            animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+            exit={reduced ? { opacity: 0 } : { opacity: 0, y: -6, scale: 0.99 }}
+            transition={reduced ? { duration: 0 } : { type: 'spring', stiffness: 430, damping: 34 }}
             className="relative z-10 w-full max-w-[620px] overflow-hidden rounded-[14px] border border-line-strong bg-surface shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)]"
           >
             <div className="flex items-center gap-3 border-b border-line px-4">

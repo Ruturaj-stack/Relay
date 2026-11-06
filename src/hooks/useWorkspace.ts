@@ -252,40 +252,40 @@ export function useTeamActions() {
   })
   const invite = useMutation({
     mutationFn: inviteMember,
-    onSuccess: (_, input) => {
-      invalidate()
+    onSuccess: async (_, input) => {
+      await invalidate()
       toast.success('Invitation sent', `An invitation was sent to ${input.email}.`)
     },
     onError: (error: Error) => toast.error('Invitation not sent', error.message),
   })
   const role = useMutation({
     mutationFn: (input: { teamId: string; profileId: string; role: TeamRole }) => updateTeamMemberRole(input),
-    onSuccess: () => {
-      invalidate()
+    onSuccess: async () => {
+      await invalidate()
       toast.success('Role updated')
     },
     onError: (error: Error) => toast.error('Role not updated', error.message),
   })
   const remove = useMutation({
     mutationFn: (input: { teamId: string; profileId: string }) => removeTeamMember(input),
-    onSuccess: () => {
-      invalidate()
+    onSuccess: async () => {
+      await invalidate()
       toast.success('Member removed')
     },
     onError: (error: Error) => toast.error('Member not removed', error.message),
   })
   const cancelInvite = useMutation({
     mutationFn: cancelInvitation,
-    onSuccess: () => {
-      invalidate()
+    onSuccess: async () => {
+      await invalidate()
       toast.success('Invitation cancelled')
     },
     onError: (error: Error) => toast.error('Invitation not cancelled', error.message),
   })
   const acceptInvite = useMutation({
     mutationFn: acceptInvitation,
-    onSuccess: () => {
-      invalidate()
+    onSuccess: async () => {
+      await invalidate()
       toast.success('You joined the team')
     },
     onError: (error: Error) => toast.error('Could not join team', error.message),
@@ -298,8 +298,8 @@ export function useProfileActions() {
   const update = useMutation({
     mutationFn: (input: { profileId: string; patch: Record<string, unknown> }) =>
       updateProfile(input.profileId, input.patch),
-    onSuccess: () => {
-      invalidate()
+    onSuccess: async () => {
+      await invalidate()
       toast.success('Profile updated')
     },
     onError: (error: Error) => toast.error('Profile not updated', error.message),
@@ -311,8 +311,8 @@ export function useIssueActions() {
   const invalidate = useInvalidate()
   return useMutation({
     mutationFn: reportIssue,
-    onSuccess: (result) => {
-      invalidate()
+    onSuccess: async (result) => {
+      await invalidate()
       toast.success(
         'Issue reported',
         result.offline ? 'Saved offline and queued for your team.' : 'Your team has been notified.',
@@ -326,8 +326,8 @@ export function useWorkspaceMaintenance() {
   const invalidate = useInvalidate()
   const reset = useMutation({
     mutationFn: resetWorkspace,
-    onSuccess: () => {
-      invalidate()
+    onSuccess: async () => {
+      await invalidate()
       toast.success('Demo workspace reset', 'Seed data has been restored.')
     },
     onError: (error: Error) => toast.error('Reset failed', error.message),

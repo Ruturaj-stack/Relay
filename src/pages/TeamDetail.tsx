@@ -166,8 +166,8 @@ export function TeamDetailPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-12">
-        <div className="space-y-4 lg:col-span-7">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+        <div className="min-w-0 space-y-4 lg:col-span-7">
           <section className="card overflow-hidden">
             <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
               <div>
@@ -188,7 +188,7 @@ export function TeamDetailPage() {
                       <Avatar profile={member} size="md" />
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-1.5">
-                          <Link to={`/people?person=${member.id}`} className="truncate text-[12px] font-medium text-ink hover:text-accent">
+                          <Link to={`/people?person=${member.id}`} className="tap-link truncate text-[12px] font-medium text-ink hover:text-accent">
                             {member.name}
                           </Link>
                           {isMe && <Badge tone="accent">You</Badge>}
@@ -277,7 +277,7 @@ export function TeamDetailPage() {
           <section className="card overflow-hidden">
             <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
               <h2 className="text-[13px] font-medium text-ink">Shared inventory</h2>
-              <Link to="/items" className="text-[10px] text-muted hover:text-accent">
+              <Link to="/items" className="tap-link text-[10px] text-muted hover:text-accent">
                 All items <ChevronRight size={10} className="inline" />
               </Link>
             </div>

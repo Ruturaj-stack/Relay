@@ -23,6 +23,7 @@ import type { z } from 'zod'
 import type { Profile } from '@/types'
 import { teamSchema } from '@/lib/validation'
 import { useTeamActions, useWorkspace } from '@/hooks/useWorkspace'
+import { useNow } from '@/hooks/useViewport'
 import {
   getCurrentProfile,
   getProfile,
@@ -74,6 +75,7 @@ export function PeoplePage() {
   const me = data ? getCurrentProfile(data) : undefined
   const teams = data ? teamViews(data) : []
   const person = data && personId ? getProfile(data, personId) : undefined
+  const now = useNow()
 
   const setTab = (next: TabKey) => {
     const nextParams = new URLSearchParams(params)
@@ -110,7 +112,7 @@ export function PeoplePage() {
       (invite) => invite.status === 'pending' && me && invite.email.toLowerCase() === me.email.toLowerCase(),
     )
     const myTeamIds = new Set(
-      teams.filter((team) => team.members.some((member) => member.profileId === me?.id)).map((team) => team.id),
+      data.teams.filter((team) => team.members.some((member) => member.profileId === me?.id)).map((team) => team.id),
     )
     const sent = data.invitations.filter(
       (invite) =>
@@ -119,7 +121,7 @@ export function PeoplePage() {
         !(me && invite.email.toLowerCase() === me.email.toLowerCase()),
     )
     return { mine, sent }
-  }, [data, me, teams])
+  }, [data, me])
 
   const pendingForMe = invitations.mine.length
 
@@ -217,7 +219,7 @@ export function PeoplePage() {
                   className="card card-hover group p-4 text-left"
                 >
                   <div className="flex items-start gap-3">
-                    <Avatar profile={profile} size="lg" online={profile.lastActiveAt > new Date(Date.now() - 3_600_000).toISOString()} />
+                    <Avatar profile={profile} size="lg" online={profile.lastActiveAt > new Date(now.getTime() - 3_600_000).toISOString()} />
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-1.5">
                         <span className="truncate text-[13.5px] font-medium text-ink">{profile.name}</span>

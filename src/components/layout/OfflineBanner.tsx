@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { AlertTriangle, CheckCircle2, CloudOff, Loader2, RefreshCw, Trash2, Wifi } from 'lucide-react'
+import { AlertTriangle, CloudOff, Loader2, RefreshCw, Trash2, Wifi } from 'lucide-react'
 import { useSyncStore } from '@/store/syncStore'
 
 export function OfflineBanner() {
@@ -13,6 +13,8 @@ export function OfflineBanner() {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
+          role="region"
+          aria-label="Connection status"
           className="overflow-hidden"
         >
           <div className="mx-auto max-w-[1500px] px-4 pt-3 md:px-6 lg:px-8">
@@ -57,11 +59,6 @@ export function OfflineBanner() {
             </div>
           </div>
         </motion.div>
-      )}
-      {online && pending === 0 && failed === 0 && (
-        <span className="sr-only">
-          <CheckCircle2 /> All changes synced
-        </span>
       )}
     </AnimatePresence>
   )

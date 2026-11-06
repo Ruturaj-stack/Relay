@@ -54,7 +54,13 @@ export function updateDatabase(mutator: (draft: DemoDatabase) => void): DemoData
 }
 
 export function resetDatabase(): DemoDatabase {
+  const currentUserId = loadDatabase().currentUserId
   const seeded = createSeedDatabase()
+  // Resetting the workspace should not sign the person out. Keep the session
+  // when the same demo profile still exists in the seed.
+  if (currentUserId && seeded.profiles.some((profile) => profile.id === currentUserId)) {
+    seeded.currentUserId = currentUserId
+  }
   saveDatabase(seeded)
   window.dispatchEvent(new CustomEvent('relay:data'))
   return seeded

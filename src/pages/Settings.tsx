@@ -140,7 +140,28 @@ export function SettingsPage() {
                 </div>
               </div>
             </div>
-            <nav className="scrollbar-none flex gap-1 overflow-x-auto p-2 lg:flex-col" aria-label="Settings sections">
+            <nav
+              className="scrollbar-none flex gap-1 overflow-x-auto p-2 lg:flex-col"
+              aria-label="Settings sections"
+              role="tablist"
+              onKeyDown={(event) => {
+                const handled = ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End']
+                if (!handled.includes(event.key)) return
+                event.preventDefault()
+                const index = TABS.findIndex((entry) => entry.value === validTab)
+                const nextIndex =
+                  event.key === 'Home'
+                    ? 0
+                    : event.key === 'End'
+                      ? TABS.length - 1
+                      : event.key === 'ArrowDown' || event.key === 'ArrowRight'
+                        ? (index + 1) % TABS.length
+                        : (index - 1 + TABS.length) % TABS.length
+                const next = TABS[nextIndex]
+                setTab(next.value)
+                requestAnimationFrame(() => document.getElementById(`settings-tab-${next.value}`)?.focus())
+              }}
+            >
               {TABS.map((entry) => {
                 const active = entry.value === validTab
                 const Icon = entry.icon
@@ -148,8 +169,11 @@ export function SettingsPage() {
                   <button
                     key={entry.value}
                     type="button"
+                    role="tab"
+                    id={`settings-tab-${entry.value}`}
+                    aria-selected={active}
+                    aria-controls={`settings-panel-${entry.value}`}
                     onClick={() => setTab(entry.value)}
-                    aria-current={active ? 'page' : undefined}
                     className={cn(
                       'flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-[12px] font-medium transition-colors',
                       active ? 'bg-surface-3 text-ink' : 'text-muted hover:bg-surface-2 hover:text-ink',
@@ -174,7 +198,12 @@ export function SettingsPage() {
           </div>
         </aside>
 
-        <div className="min-w-0">
+        <div
+          className="min-w-0"
+          role="tabpanel"
+          id={`settings-panel-${validTab}`}
+          aria-labelledby={`settings-tab-${validTab}`}
+        >
           {validTab === 'profile' && <ProfileSection key={user.id} />}
           {validTab === 'notifications' && <NotificationsSection />}
           {validTab === 'appearance' && <AppearanceSection />}
@@ -449,7 +478,7 @@ function AppearanceSection() {
             checked={collapsed}
             onChange={setCollapsed}
             label="Compact desktop sidebar"
-            description="Keep navigation icon-only on large screens. The mobile bottom bar is unaffected."
+            description="Keep navigation icon-only on large screens. Tablets always use the icon rail, and the mobile bottom bar is unaffected."
           />
         </div>
         <div className="flex items-start gap-2 border-t border-line bg-surface-2/30 px-4 py-3 sm:px-5">

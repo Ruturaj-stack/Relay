@@ -63,7 +63,7 @@ import { toast } from '@/store/appStore'
 type DialogKind = 'decline' | 'cancel' | 'return' | 'confirm_return' | 'note' | null
 
 export function HandoffDetailPage() {
-  const { id } = useParams<{ id: string }>()
+  const { handoffId: id } = useParams<{ handoffId: string }>()
   const { data, isLoading, isError, refetch } = useWorkspace()
   const [params, setParams] = useSearchParams()
   const navigate = useNavigate()

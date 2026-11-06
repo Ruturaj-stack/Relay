@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useMediaQuery } from '@/hooks/useViewport'
@@ -19,24 +19,14 @@ export function AppShell() {
   const location = useLocation()
   const navigate = useNavigate()
   const collapsed = useAppStore((state) => state.sidebarCollapsed)
-  const setCollapsed = useAppStore((state) => state.setSidebarCollapsed)
   const setCommandOpen = useAppStore((state) => state.setCommandOpen)
   const commandOpen = useAppStore((state) => state.commandOpen)
   const initializeSync = useSyncStore((state) => state.initialize)
-  const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1099px)')
   const isDesktop = useMediaQuery('(min-width: 1100px)')
-  const adjustedTablet = useRef(false)
 
   useEffect(() => {
     initializeSync()
   }, [initializeSync])
-
-  useEffect(() => {
-    if (isTablet && !adjustedTablet.current) {
-      adjustedTablet.current = true
-      setCollapsed(true)
-    }
-  }, [isTablet, setCollapsed])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })

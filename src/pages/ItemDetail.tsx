@@ -52,7 +52,7 @@ import { ItemFormDialog } from '@/components/items/ItemFormDialog'
 import { toast } from '@/store/appStore'
 
 export function ItemDetailPage() {
-  const { id } = useParams<{ id: string }>()
+  const { itemId: id } = useParams<{ itemId: string }>()
   const { data, isLoading, isError, refetch } = useWorkspace()
   const [params, setParams] = useSearchParams()
   const navigate = useNavigate()
@@ -286,7 +286,7 @@ export function ItemDetailPage() {
                     {item.holderId === me?.id ? 'You' : item.holder.name}
                   </p>
                   <p className="truncate text-[10.5px] text-faint">{item.holder.title}</p>
-                  <Link to={`/people?person=${item.holderId}`} className="mt-1 inline-flex items-center gap-1 text-[10px] text-muted hover:text-accent">
+                  <Link to={`/people?person=${item.holderId}`} className="tap-link mt-1 inline-flex items-center gap-1 text-[10px] text-muted hover:text-accent">
                     View profile <ChevronRight size={10} />
                   </Link>
                 </div>

@@ -346,10 +346,10 @@ export function ActivityPage() {
                           <span className="text-[11.5px] font-medium text-ink">{entry.actor.name}</span>
                           <span className="text-[10.5px] text-muted">{meta.sentence}</span>
                           <span className="text-[10.5px] text-faint">·</span>
-                          <Link to={`/handoffs/${entry.handoff.id}`} className="text-[10.5px] font-medium text-ink hover:text-accent">
+                          <Link to={`/handoffs/${entry.handoff.id}`} className="tap-link text-[10.5px] font-medium text-ink hover:text-accent">
                             {entry.handoff.item.name}
                           </Link>
-                          <Link to={`/handoffs/${entry.handoff.id}`} className="font-mono text-[9px] text-faint hover:text-accent">
+                          <Link to={`/handoffs/${entry.handoff.id}`} className="tap-link font-mono text-[9px] text-faint hover:text-accent">
                             {entry.handoff.code}
                           </Link>
                         </div>

@@ -25,7 +25,7 @@ export function PageHeader({
       {back && (
         <Link
           to={back.to}
-          className="-mb-1 inline-flex w-fit items-center gap-1.5 text-[11.5px] font-medium text-muted transition-colors hover:text-ink"
+          className="tap-link -mb-1 inline-flex w-fit items-center gap-1.5 text-[11.5px] font-medium text-muted transition-colors hover:text-ink"
         >
           <ChevronLeft size={14} />
           {back.label}

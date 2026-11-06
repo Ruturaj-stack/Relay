@@ -17,7 +17,7 @@ import {
 import { navItems } from '@/lib/navigation'
 import { cn } from '@/lib/utils'
 import { getCurrentProfile, notificationList, queryHandoffs } from '@/lib/selectors'
-import { useInstallPrompt } from '@/hooks/useViewport'
+import { useInstallPrompt, useMediaQuery } from '@/hooks/useViewport'
 import { useWorkspace, useSignOut } from '@/hooks/useWorkspace'
 import { useAppStore, toast } from '@/store/appStore'
 import { useSyncStore } from '@/store/syncStore'
@@ -27,7 +27,11 @@ import { Menu } from '@/components/ui/overlays'
 export const SIDEBAR_WIDTH = { expanded: 248, collapsed: 76 }
 
 export function Sidebar() {
-  const collapsed = useAppStore((state) => state.sidebarCollapsed)
+  const storedCollapsed = useAppStore((state) => state.sidebarCollapsed)
+  const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1099px)')
+  // Tablets always use the icon rail, but that must not overwrite the
+  // desktop preference. The rail is a responsive state, not a saved setting.
+  const collapsed = storedCollapsed || isTablet
   const toggle = useAppStore((state) => state.toggleSidebar)
   const theme = useAppStore((state) => state.theme)
   const toggleTheme = useAppStore((state) => state.toggleTheme)
@@ -61,15 +65,17 @@ export function Sidebar() {
         {!collapsed && <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-faint">Beta</span>}
       </div>
 
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        className="absolute -right-3 top-[76px] z-10 flex h-6 w-6 items-center justify-center rounded-full border border-line-strong bg-surface-2 text-faint shadow-md transition-colors hover:border-accent/40 hover:text-ink"
-      >
-        {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
-      </button>
+      {!isTablet && (
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          className="absolute -right-3 top-[76px] z-10 flex h-6 w-6 items-center justify-center rounded-full border border-line-strong bg-surface-2 text-faint shadow-md transition-colors hover:border-accent/40 hover:text-ink"
+        >
+          {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
+        </button>
+      )}
 
       <div className={cn('shrink-0 px-3 pb-1 pt-4', collapsed && 'px-2.5')}>
         <Button
@@ -193,12 +199,13 @@ export function Sidebar() {
         )}
 
         <div className={cn('flex items-center gap-2 rounded-lg p-1', collapsed && 'justify-center')}>
-          <Link to="/settings" aria-label="Open profile settings" className="shrink-0">
+          <Link to="/settings" className="shrink-0">
             {profile ? (
               <Avatar profile={profile} size="sm" online />
             ) : (
               <span className="block h-8 w-8 rounded-full bg-surface-3" />
             )}
+            <span className="sr-only">Open profile settings</span>
           </Link>
           {!collapsed && (
             <>

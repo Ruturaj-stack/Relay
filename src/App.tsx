@@ -27,9 +27,13 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       staleTime: 15_000,
       retry: 1,
+      // The demo adapter reads from local storage, so offline is a supported
+      // state rather than a pause. The hosted adapter can override this.
+      networkMode: 'always',
     },
     mutations: {
       retry: 0,
+      networkMode: 'always',
     },
   },
 })
